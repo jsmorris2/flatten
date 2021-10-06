@@ -1,0 +1,5 @@
+/bin/
+/output/
+/node_modules/
+/.*rc
+/*.csv

@@ -1,0 +1,22 @@
+{
+  "name": "flatten",
+  "version": "1.0.0",
+  "description": "Flatten OData feed for Excel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "nexe index.js -t windows-x64-14.15.3 -r package.json -o bin/flatten.exe"
+  },
+  "author": "Jason S. Morris <jason.morris@intel.com>",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^2.25.0",
+    "json-2-csv": "^3.14.4",
+    "node-fetch": "^2.6.5",
+    "rc": "^1.2.8",
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "nexe": "^4.0.0-beta.19"
+  }
+}
