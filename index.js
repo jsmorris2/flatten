@@ -40,7 +40,7 @@ function load(argv) {
 function flatten(argv) {
   return load(argv)
     .then(r => {
-      return json2csv.json2csvAsync(r.value)
+      return json2csv.json2csvAsync(r.value.slice(1), { emptyFieldValue: '' })
         .then(r => {
           fs.createWriteStream(argv.output, { flags: 'a' }).write(r)
         })
