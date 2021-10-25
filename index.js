@@ -18,6 +18,8 @@ function get (argv) {
     }
   }
 
+  console.log(`Connecting as ${argv.user}...`)
+
   return fetch(argv._[0], options)
     .then(r => {
       if (!r.ok) {
