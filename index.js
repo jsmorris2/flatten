@@ -13,6 +13,7 @@ function get (argv) {
   const options = {
     timeout: 600000,
     headers: {
+      'Accept': '*/*',
       'Authorization': `Basic ${Buffer.from(`${argv.user}:${argv.password}`).toString('base64')}`
     }
   }
