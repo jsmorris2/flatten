@@ -40,7 +40,7 @@ function load(argv) {
 function flatten(argv) {
   return load(argv)
     .then(r => {
-      return json2csv.json2csvAsync(r.value.slice(1), { emptyFieldValue: '' })
+      return json2csv.json2csvAsync(r.value, { emptyFieldValue: '', sortHeader: false, excludeKeys: argv.exclude, unwindArrays: argv.unwindArrays })
         .then(r => {
           fs.createWriteStream(argv.output, { flags: 'a' }).write(r)
         })
@@ -65,10 +65,22 @@ const argv = yargs(hideBin(process.argv))
     default: `output-${format(new Date(), 'yyyy-MM-dd HH-mm-ss')}.csv`,
     nargs: 1
   })
+  .option('e', {
+    alias: 'exclude',
+    type: 'array',
+    description: 'List of keys/columns to exclude from output'
+  })
+  .option('ua', {
+    alias: 'unwindArrays',
+    type: 'boolean',
+    default: false,
+    description: 'convert arrays into one live per value'
+  })
   .help('h')
   .alias('h', 'help')
   .example('$0 https://ems.intel.com/api/v2/processes -p "password"', 'Returns a CSV file with the JSON data flattened')
   .example('$0 https://ems.intel.com/api/v2/processes -p "password" -o output.csv', 'Returns a CSV file with name output.csv with the JSON data flattened')
+  .example('$0 https://ems.intel.com/api/v2/processes -e pr -e oa -e oa.name', 'Returns a CSV file with name output.csv with the JSON data flattened')
   .argv
 
 flatten(argv)
