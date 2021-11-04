@@ -12,7 +12,7 @@
   "dependencies": {
     "date-fns": "^2.25.0",
     "json-2-csv": "^3.14.4",
-    "node-fetch": "^2.6.5",
+    "node-fetch": "^2.6.6",
     "rc": "^1.2.8",
     "yargs": "^17.2.1"
   },
