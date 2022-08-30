@@ -2,7 +2,7 @@
 /bin/
 /output/
 /node_modules/
-/.*rc
+/.flattenrc*
 /*.csv
 /*.zip
-/.flattenrc.default
+
