@@ -4,3 +4,5 @@
 /node_modules/
 /.*rc
 /*.csv
+/*.zip
+/.flattenrc.default
