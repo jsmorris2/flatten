@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "date-fns": "^2.29.2",
-    "json-2-csv": "^3.14.4",
+    "json-2-csv": "^3.17.1",
     "node-fetch": "^2.6.6",
     "rc": "^1.2.8",
     "yargs": "^17.2.1"
