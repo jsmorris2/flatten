@@ -1,7 +1,7 @@
 {
   "name": "flatten",
-  "version": "1.0.0",
-  "description": "Flatten OData feed for Excel",
+  "version": "1.1.0",
+  "description": "Flatten OData feed to CSV file for Excel",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
