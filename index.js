@@ -11,7 +11,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 function get (argv) {
   const options = {
-    timeout: 600000,
+    timeout: argv.timeout,
     headers: {
       'Accept': '*/*',
       'Authorization': `Basic ${Buffer.from(`${argv.user}:${argv.password}`).toString('base64')}`
@@ -27,6 +27,10 @@ function get (argv) {
       }
 
       return r.json()
+    })
+    .catch(e => {
+      console.error(`...error when retrieving data.`)
+      throw e
     })
 }
 
@@ -77,13 +81,22 @@ const argv = yargs(hideBin(process.argv))
     alias: 'unwindArrays',
     type: 'boolean',
     default: false,
-    description: 'convert arrays into one live per value'
+    nargs: 1,
+    description: 'Convert arrays into one line per value'
+  })
+  .option('t', {
+    alias: 'timeout',
+    type: 'number',
+    default: 1200000,
+    nargs: 1,
+    description: 'How long to wait for data to return in milliseconds'
   })
   .help('h')
   .alias('h', 'help')
   .example('$0 https://ems.intel.com/api/v2/processes -p "password"', 'Returns a CSV file with the JSON data flattened')
   .example('$0 https://ems.intel.com/api/v2/processes -p "password" -o output.csv', 'Returns a CSV file with name output.csv with the JSON data flattened')
   .example('$0 https://ems.intel.com/api/v2/processes -e pr -e oa -e oa.name', 'Returns a CSV file with name output.csv with the JSON data flattened')
+  .example('$0 https://ems-test.intel.com/api/v4/procurements?process=1274 -t 1200000', 'Will wait for 20 minutes before timing out')
   .argv
 
 flatten(argv)
