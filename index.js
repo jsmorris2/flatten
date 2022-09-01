@@ -1,10 +1,10 @@
-import { format } from 'date-fns'
-import { hideBin } from 'yargs/helpers'
-import fs from 'fs'
-import rc from 'rc'
-import yargs from 'yargs'
+const format = require('date-fns').format
+const hideBin = require('yargs/helpers').hideBin
+const fs = require('fs')
+const rc = require('rc')
+const yargs = require('yargs')
 
-import Parser from './lib/parser.js'
+const Parser = require('./lib/parser')
 
 process.env.NODE_NO_WARNINGS = '1'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'

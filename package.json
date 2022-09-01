@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "Flatten OData feed to CSV file for Excel",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "engines": {
     "node": ">=14.15.0",
     "npm": ">=6.14.0"
