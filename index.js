@@ -1,58 +1,13 @@
-const fetch = require('node-fetch')
-const format = require('date-fns').format
-const hideBin = require('yargs/helpers').hideBin
-const fs = require('fs')
-const json2csv = require('json-2-csv')
-const rc = require('rc')
-const yargs = require('yargs')
+import { format } from 'date-fns'
+import { hideBin } from 'yargs/helpers'
+import fs from 'fs'
+import rc from 'rc'
+import yargs from 'yargs'
+
+import Parser from './lib/parser.js'
 
 process.env.NODE_NO_WARNINGS = '1'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-
-function get (argv) {
-  const options = {
-    timeout: argv.timeout,
-    headers: {
-      'Accept': '*/*',
-      'Authorization': `Basic ${Buffer.from(`${argv.user}:${argv.password}`).toString('base64')}`
-    }
-  }
-
-  console.log(`Connecting as ${argv.user}...`)
-
-  return fetch(argv._[0], options)
-    .then(r => {
-      if (!r.ok) {
-        throw new Error(`HTTP response status is ${r.status}`)
-      }
-
-      return r.json()
-    })
-    .catch(e => {
-      console.error(`...error when retrieving data.`)
-      throw e
-    })
-}
-
-function load(argv) {
-  console.log(`fetching ${argv._[0]}...`)
-
-  return get(argv)
-    .then((data) => {
-      console.log(`...fetching complete!`)
-      return data
-    })
-}
-
-function flatten(argv) {
-  return load(argv)
-    .then(r => {
-      return json2csv.json2csvAsync(r.value, { emptyFieldValue: '', sortHeader: false, excludeKeys: argv.exclude, unwindArrays: argv.unwindArrays })
-        .then(r => {
-          fs.createWriteStream(argv.output, { flags: 'a' }).write(r)
-        })
-    })
-}
 
 const argv = yargs(hideBin(process.argv))
   .config(rc('flatten'))
@@ -91,6 +46,13 @@ const argv = yargs(hideBin(process.argv))
     nargs: 1,
     description: 'How long to wait for data to return in milliseconds'
   })
+  .option('f', {
+    alias: 'format',
+    type: 'string',
+    default: 'odata',
+    nargs: 1,
+    description: 'What format is the data in?, i.e. odata, atom, etc'
+  })
   .help('h')
   .alias('h', 'help')
   .example('$0 https://ems.intel.com/api/v2/processes -p "password"', 'Returns a CSV file with the JSON data flattened')
@@ -99,7 +61,17 @@ const argv = yargs(hideBin(process.argv))
   .example('$0 https://ems-test.intel.com/api/v4/procurements?process=1274 -t 1200000', 'Will wait for 20 minutes before timing out')
   .argv
 
-flatten(argv)
+Parser
+  .get(argv)
+  .parse()
+  .then(r => {
+    console.info(`Creating file ${argv.output}`)
+    return fs.createWriteStream(argv.output, { flags: 'a' }).write(r)
+  })
+  .then(f => {
+    console.info('...saved!')
+    return f
+  })
   .catch(e => {
-    console.log(`ERROR: ${e.message}`)
+    console.error(`ERROR: ${e.message}`)
   })
