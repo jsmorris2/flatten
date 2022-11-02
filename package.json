@@ -15,7 +15,7 @@
   "author": "Jason S. Morris <jason.morris@intel.com>",
   "license": "ISC",
   "dependencies": {
-    "date-fns": "^2.29.2",
+    "date-fns": "^2.29.3",
     "httpntlm": "^1.7.7",
     "json-2-csv": "^3.17.1",
     "node-fetch": "^2.6.7",
