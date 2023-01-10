@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "date-fns": "^2.29.3",
-    "httpntlm": "^1.7.7",
+    "httpntlm": "^1.8.2",
     "json-2-csv": "^3.17.2",
     "node-fetch": "^2.6.7",
     "rc": "^1.2.8",
