@@ -17,10 +17,10 @@
   "dependencies": {
     "date-fns": "^2.29.3",
     "httpntlm": "^1.8.2",
-    "json-2-csv": "^3.18.0",
+    "json-2-csv": "^3.20.0",
     "node-fetch": "^2.6.9",
     "rc": "^1.2.8",
-    "xml2js": "^0.4.23",
+    "xml2js": "^0.5.0",
     "yargs": "^17.7.1"
   },
   "devDependencies": {
