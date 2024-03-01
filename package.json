@@ -5,12 +5,13 @@
   "main": "index.js",
   "type": "commonjs",
   "engines": {
-    "node": ">=18.13.0",
-    "npm": ">=9.2.0"
+    "node": ">=14.15.0",
+    "npm": ">=6.14.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "nexe index.js -t windows-x64-14.15.3 -r package.json -o bin/flatten.exe"
+    "build-14": "nexe index.js -t windows-x64-14.15.3 -r package.json -o bin/flatten.exe",
+    "build-latest": "nexe index.js --build -r package.json -o bin/flatten.exe"
   },
   "author": "Jason S. Morris <jason.morris@intel.com>",
   "license": "ISC",
@@ -30,6 +31,6 @@
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-security": "^2.1.1",
-    "nexe": "^4.0.0-rc.2"
+    "nexe": "^4.0.0-rc.4"
   }
 }
