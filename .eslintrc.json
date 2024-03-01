@@ -1,22 +1,26 @@
 {
   "env": {
+    "es2023": true,
     "node": true
-  },
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
   },
   "extends": [
     "standard",
-    "plugin:import/errors",
-    "plugin:import/warnings",
+    "plugin:@eslint-community/eslint-comments/recommended",
+    "plugin:import/recommended",
     "plugin:n/recommended",
-    "plugin:promise/recommended"
+    "plugin:promise/recommended",
+    "plugin:security/recommended-legacy" // TODO: (jmorris2) convert post elsint 9.0.0
   ],
+  "globals": {},
+  "parserOptions": {
+    "ecmaVersion": 2023,
+    "sourceType": "module"
+  },
   "plugins": [
+    "@eslint-community/eslint-comments",
     "import",
     "n",
     "promise",
-    "standard"
+    "security"
   ]
 }

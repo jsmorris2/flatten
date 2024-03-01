@@ -24,12 +24,12 @@
     "yargs": "^17.7.1"
   },
   "devDependencies": {
-    "eslint": "^8.39.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.7.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-security": "^2.1.1",
     "nexe": "^4.0.0-rc.2"
   }
 }
