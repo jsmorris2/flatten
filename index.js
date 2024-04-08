@@ -4,7 +4,8 @@ const fs = require('fs')
 const rc = require('rc')
 const yargs = require('yargs')
 
-const Parser = require('./lib/parser')
+const OdataParser = require('./lib/odataparser')
+const AtomParser = require('./lib/atomparser')
 
 process.env.NODE_NO_WARNINGS = '1'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
@@ -36,7 +37,12 @@ const argv = yargs(hideBin(process.argv))
     alias: 'unwindArrays',
     type: 'boolean',
     default: false,
-    nargs: 1,
+    description: 'Convert arrays into one line per value'
+  })
+  .option('eao', {
+    alias: 'expandArrayObjects',
+    type: 'boolean',
+    default: false,
     description: 'Convert arrays into one line per value'
   })
   .option('t', {
@@ -61,8 +67,20 @@ const argv = yargs(hideBin(process.argv))
   .example('$0 https://ems-test.intel.com/api/v4/procurements?process=1274 -t 1200000', 'Will wait for 20 minutes before timing out')
   .argv
 
-Parser
-  .get(argv)
+
+console.info(`Connecting as ${argv.user}...`)
+
+function get (argv) {
+  switch (argv.format) {
+    case 'odata':
+      return new OdataParser(argv)
+    case 'atom':
+      return new AtomParser(argv)
+    default:
+  }
+}
+
+get(argv)
   .parse()
   .then(r => {
     console.info(`Creating file ${argv.output}`)
