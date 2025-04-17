@@ -32,6 +32,6 @@
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.6.0",
     "eslint-plugin-security": "^2.1.1",
-    "nexe": "^4.0.0-rc.6"
+    "nexe": "^5.0.0-beta.4"
   }
 }
