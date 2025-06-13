@@ -6,6 +6,7 @@ const yargs = require('yargs')
 
 const OdataParser = require('./lib/odataparser')
 const AtomParser = require('./lib/atomparser')
+const { HttpError } = require('http-errors')
 
 process.env.NODE_NO_WARNINGS = '1'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
@@ -67,7 +68,6 @@ const argv = yargs(hideBin(process.argv))
   .example('$0 https://ems-test.intel.com/api/v4/procurements?process=1274 -t 1200000', 'Will wait for 20 minutes before timing out')
   .argv
 
-
 console.info(`Connecting as ${argv.user}...`)
 
 function get (argv) {
@@ -91,5 +91,9 @@ get(argv)
     return f
   })
   .catch(e => {
-    console.error(`ERROR: ${e.message}`)
+    if (e instanceof HttpError) {
+      console.error(`HTTP error: ${e.status} - ${e.message}`)
+    } else {
+      console.error(`ERROR: ${e.message}`)
+    }
   })
